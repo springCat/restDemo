@@ -6,10 +6,6 @@ type RestResource struct {
 	methods map[string]func(http.ResponseWriter, *http.Request)
 }
 
-func (resource RestResource) init() {
-	resource.methods = make(map[string]func(resp http.ResponseWriter, req *http.Request), 10)
-}
-
 func (resource RestResource) Get(f func(resp http.ResponseWriter, req *http.Request)) {
 	resource.methods["GET"] = f
 }
@@ -42,8 +38,10 @@ func (resource RestResource) Handler(resp http.ResponseWriter, req *http.Request
 	method(resp, req)
 }
 
-func New() *RestResource {
-	return &RestResource{
+func NewRestResource() *Resource {
+	resource := RestResource{
 		methods: make(map[string]func(resp http.ResponseWriter, req *http.Request), 10),
 	}
+	r := Resource(resource)
+	return &r
 }

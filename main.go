@@ -3,10 +3,11 @@ package main
 import (
 	"fmt"
 	"net/http"
+		"./hello"
 )
 
 func main() {
-	r := NewHelloResource()
+	r := hello.NewHelloResource()
 
 	http.HandleFunc("/", r.Handler)
 	err := http.ListenAndServe(":3000", nil)
